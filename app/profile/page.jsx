@@ -1,13 +1,19 @@
 "use client";
 import { useState } from "react";
-import { signOut, useSession } from "next-auth/react";
+import { signOut, useSession, signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  const { data: session, status } = useSession({ required: true });
+  const { data: session, status } = useSession();
   const [response, setResponse] = useState("{}");
-
+  if (status == "loading") {
+    return <p>loading....</p>;
+  }
+  if (status == "unauthenticated") {
+    return redirect("/");
+  }
   const getUserDetails = async (useToken) => {
     try {
       const response = await axios({
@@ -37,14 +43,14 @@ export default function Home() {
           <span>{response}</span>
         </div>
         <div className="justify-center mt-4">
-          <Button colorScheme="blue" onClick={() => getUserDetails(true)}>
+          <Button variant="outline" onClick={() => getUserDetails(true)}>
             User details (with token)
           </Button>
-          <Button colorScheme="orange" onClick={() => getUserDetails(false)}>
+          <Button variant="outline" onClick={() => getUserDetails(false)}>
             User details (without token)
           </Button>
           <Button
-            colorScheme="red"
+            variant="outline"
             onClick={() => signOut({ callbackUrl: "/" })}
           >
             Sign out
