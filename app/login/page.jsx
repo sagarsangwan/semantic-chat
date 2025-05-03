@@ -16,7 +16,7 @@ export default async function LoginPage() {
           <form
             action={async () => {
               "use server";
-              await signIn({ callbackUrl: "/" }, "google");
+              await signIn("google");
             }}
           >
             <Button type="submit">Sign in With Google</Button>
