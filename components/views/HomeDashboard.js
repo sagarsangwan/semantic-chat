@@ -1,10 +1,11 @@
 import React from "react";
-import { AppSidebar } from "../layout/app-sidebar";
+// import { AppSidebar } from "../layout/chat-sidebar";
+import { ChatLayout } from "../layout/chat-layout";
 
 function HomeDashboard() {
   return (
     <div>
-      <AppSidebar />
+      <ChatLayout />
     </div>
   );
 }
