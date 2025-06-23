@@ -2,7 +2,6 @@ import { Space_Grotesk, Inter } from "next/font/google";
 import "./globals.css";
 import SessionProviders from "@/components/providers/sessionProvider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import Providers from "./StoreProvider";
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -28,19 +27,19 @@ export default function RootLayout({ children }) {
         <body
           className={`${spaceGrotesk.variable} ${inter.variable} antialiased`}
         >
-          <SidebarProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              <SessionProviders>
-                {children}
-                <SidebarTrigger />
-              </SessionProviders>
-            </ThemeProvider>
-          </SidebarProvider>
+          {/* <SidebarProvider> */}
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <SessionProviders>
+              {children}
+              {/* <SidebarTrigger /> */}
+            </SessionProviders>
+          </ThemeProvider>
+          {/* </SidebarProvider> */}
         </body>
       </Providers>
     </html>
