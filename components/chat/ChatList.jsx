@@ -10,7 +10,7 @@ import ChatItem from "./ChatItem";
 function ChatList({ chatRooms, setActiveChat, activeChat }) {
   return (
     <div className="space-y-1 p-2">
-      <ScrollArea className="h-full min-h-screen  rounded-md  p-4">
+      <ScrollArea className="h-full min-h-screen  rounded-md  py-4">
         {chatRooms?.map((chatRoom) => (
           <ChatItem
             key={chatRoom.id}

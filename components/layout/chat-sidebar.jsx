@@ -1,166 +1,54 @@
 "use client";
 
-import { Home, Settings, LogOut, Sun, Moon } from "lucide-react";
-import { useTheme } from "next-themes";
-
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-} from "@/components/ui/sidebar";
+import { Home, Settings, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-
+import { useState } from "react";
+import { ModeToggle } from "../ui/theme-toggle";
+import { signOut, useSession } from "next-auth/react";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { auth } from "@/lib/auth";
 export function ChatSidebar() {
-  const { theme, setTheme } = useTheme();
-
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  };
-
-  const handleLogout = () => {
-    // Add your logout logic here
-    console.log("Logout clicked");
-  };
-
+  const [isExpanded, setIsExpanded] = useState(false);
+  const { data: session, loading } = useSession();
+  if (loading) {
+    return <div>loadinggggg</div>;
+  }
   return (
     <>
       {/* Desktop Sidebar */}
-      <Sidebar collapsible="none" className="hidden md:flex w-16 border-r">
-        <SidebarHeader className="p-2">
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <SidebarMenuButton size="lg" className="w-12 h-12 p-0">
-                      <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                        <Home className="size-4" />
-                      </div>
-                    </SidebarMenuButton>
-                  </TooltipTrigger>
-                  <TooltipContent side="right">
-                    <p>Home</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarHeader>
-
-        <SidebarContent className="p-2">
-          <SidebarMenu className="gap-2">
-            <SidebarMenuItem>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <SidebarMenuButton className="w-12 h-12 p-0">
-                      <Settings className="size-5" />
-                    </SidebarMenuButton>
-                  </TooltipTrigger>
-                  <TooltipContent side="right">
-                    <p>Settings</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </SidebarMenuItem>
-
-            <SidebarMenuItem>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <SidebarMenuButton
-                      className="w-12 h-12 p-0"
-                      onClick={toggleTheme}
-                    >
-                      {theme === "dark" ? (
-                        <Sun className="size-5" />
-                      ) : (
-                        <Moon className="size-5" />
-                      )}
-                    </SidebarMenuButton>
-                  </TooltipTrigger>
-                  <TooltipContent side="right">
-                    <p>{theme === "dark" ? "Light Mode" : "Dark Mode"}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarContent>
-
-        <SidebarFooter className="p-2">
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <SidebarMenuButton
-                      className="w-12 h-12 p-0 text-destructive hover:text-destructive hover:bg-destructive/10"
-                      onClick={handleLogout}
-                    >
-                      <LogOut className="size-5" />
-                    </SidebarMenuButton>
-                  </TooltipTrigger>
-                  <TooltipContent side="right">
-                    <p>Logout</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarFooter>
-      </Sidebar>
-
-      {/* Mobile Bottom Navbar */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-background border-t">
-        <div className="flex items-center justify-around p-2 max-w-md mx-auto">
-          <Button variant="ghost" size="icon" className="h-12 w-12">
-            <Home className="size-5" />
-            <span className="sr-only">Home</span>
-          </Button>
-
-          <Button variant="ghost" size="icon" className="h-12 w-12">
-            <Settings className="size-5" />
-            <span className="sr-only">Settings</span>
-          </Button>
-
+      <div className="hidden md:flex fixed left-0 top-0 h-full w-16 bg-background border-r border-border flex-col items-center py-4 z-40">
+        {/* Logo/Home at top */}
+        <div className="mb-8">
           <Button
             variant="ghost"
             size="icon"
-            className="h-12 w-12"
-            onClick={toggleTheme}
+            className="w-12 h-12 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90"
           >
-            {theme === "dark" ? (
-              <Sun className="size-5" />
-            ) : (
-              <Moon className="size-5" />
-            )}
-            <span className="sr-only">
-              {theme === "dark" ? "Light Mode" : "Dark Mode"}
-            </span>
-          </Button>
-
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-12 w-12 text-destructive hover:text-destructive hover:bg-destructive/10"
-            onClick={handleLogout}
-          >
-            <LogOut className="size-5" />
-            <span className="sr-only">Logout</span>
+            <Home className="w-6 h-6" />
           </Button>
         </div>
+
+        {/* Middle navigation items */}
+        <div className="flex-1 flex flex-col gap-4">
+          <ModeToggle />
+        </div>
+
+        <Avatar>
+          <AvatarImage src={session?.user?.image} />
+        </Avatar>
+        <p>{session?.user?.name}</p>
+        <Button onClick={() => signOut()} variant="outline">
+          <LogOut />
+        </Button>
       </div>
+
+      {/* Mobile Bottom Navigation */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-background/95 backdrop-blur-sm border-t border-border z-50">
+        <div className="flex items-center justify-around px-4 py-2 safe-area-pb"></div>
+      </div>
+
+      {/* Mobile content spacer */}
+      <div className="md:hidden h-20" />
     </>
   );
 }

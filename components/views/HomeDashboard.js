@@ -12,7 +12,6 @@ function HomeDashboard() {
     const fetchChatRooms = async () => {
       const chatRooms = await fetchChatRoomsApi();
       setChatRooms(chatRooms);
-      console.log(chatRooms);
     };
     fetchChatRooms();
     setLoading(false);
