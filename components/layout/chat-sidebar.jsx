@@ -86,7 +86,6 @@ export function ChatSidebar({ open, setOpen }) {
     fetchChatRooms();
     setLoading(false);
   }, []);
-  console.log(chatRooms);
 
   const isMobile = useIsMobile();
   const [darkMode, setDarkMode] = useState(false);
