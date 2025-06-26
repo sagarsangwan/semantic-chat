@@ -41,7 +41,7 @@ function ChatWindow({ activeChat }) {
           </>
         )}
       </ScrollArea>
-      <ChatInput />
+      <ChatInput activeChat={activeChat} />
     </div>
   );
 }

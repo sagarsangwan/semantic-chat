@@ -4,12 +4,25 @@ import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import { Send } from "lucide-react";
 import { useSession } from "next-auth/react";
+import { sendMessageApi } from "@/lib/api";
 
-function ChatInput() {
+function ChatInput({ activeChat }) {
   const [currentMessage, setCurentMessage] = useState(null);
   const { data: session, loading } = useSession();
   console.log(currentMessage);
-  const sendMessage = () => {};
+  const sendMessage = async () => {
+    const data = {
+      sender: session?.user?.pk,
+      message: currentMessage,
+      room: activeChat,
+    };
+    const result = await sendMessageApi(data, activeChat);
+    if (result.status == "ok") {
+      setCurentMessage(null);
+    } else {
+      console.log(result);
+    }
+  };
   if (loading) {
     return <div>loading</div>;
   }
@@ -20,7 +33,12 @@ function ChatInput() {
           setCurentMessage(e.target.value);
         }}
       />
-      <Button className="self-end">
+      <Button
+        onClick={() => {
+          sendMessage();
+        }}
+        className="self-end"
+      >
         <Send />
       </Button>
     </div>
