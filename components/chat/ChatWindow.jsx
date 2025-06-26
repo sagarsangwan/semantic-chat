@@ -25,14 +25,13 @@ function ChatWindow({ activeChat }) {
   //   return <div>loading</div>;
   // }
   return (
-    <div>
-      <>
-        <ChatHeader
-          activeChatLoading={activeChatLoading}
-          chatUserDetails={activeChatMessages?.other_participant}
-        />
-      </>
-      <ScrollArea className="p-2 h-screen">
+    <div className="flex flex-col h-screen pt-3">
+      <ChatHeader
+        activeChatLoading={activeChatLoading}
+        chatUserDetails={activeChatMessages?.other_participant}
+      />
+
+      <ScrollArea className=" flex-1 overflow-y-auto  ">
         {activeChatLoading ? (
           <ChatLoading />
         ) : (
