@@ -15,7 +15,7 @@ function MessageItem({ message }) {
       className={`flex px-4 py-1 ${isOwn ? "justify-end" : "justify-start"}`}
     >
       <div
-        className={`max-w-xs sm:max-w-sm md:max-w-md break-words rounded-lg px-4 py-2 text-sm shadow-md
+        className={`max-w-xs sm:max-w-sm md:max-w-md break-words rounded-lg px-4 py-2 text-sm shadow-md 
       `}
       >
         {!isOwn && (

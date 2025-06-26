@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import ChatHeader from "./ChatHeader";
 import MessageItem from "./MessageItem";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import ChatInput from "./ChatInput";
+import ChatLoading from "./ChatLoading";
 function ChatWindow({ activeChat }) {
   const [activeChatMessages, setActiveChatMessages] = useState(null);
   const [activeChatLoading, setActiveChatLoading] = useState(true);
@@ -19,9 +21,9 @@ function ChatWindow({ activeChat }) {
     fetchChatRoomMessages();
   }, [activeChat]);
   console.log(activeChatMessages?.messages);
-  if (activeChatLoading) {
-    return <div>loading</div>;
-  }
+  // if (activeChatLoading) {
+  //   return <div>loading</div>;
+  // }
   return (
     <div>
       <>
@@ -31,10 +33,17 @@ function ChatWindow({ activeChat }) {
         />
       </>
       <ScrollArea className="p-2 h-screen">
-        {activeChatMessages?.messages.map((message) => (
-          <MessageItem key={message.id} message={message} />
-        ))}
+        {activeChatLoading ? (
+          <ChatLoading />
+        ) : (
+          <>
+            {activeChatMessages?.messages.map((message) => (
+              <MessageItem key={message.id} message={message} />
+            ))}
+          </>
+        )}
       </ScrollArea>
+      <ChatInput />
     </div>
   );
 }
