@@ -16,7 +16,7 @@ function ChatHeader({ chatUserDetails, onBack, activeChatLoading }) {
     );
   }
   return (
-    <div className="flex items-center justify-between px-4 py-3 border-b bg-white dark:bg-gray-950">
+    <div className="flex items-center justify-between px-4 py-3 border-b ">
       <div className="flex items-center gap-3">
         <button
           onClick={onBack}

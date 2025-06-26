@@ -25,7 +25,7 @@ function ChatWindow({ activeChat }) {
   //   return <div>loading</div>;
   // }
   return (
-    <div className="flex flex-col h-screen pt-3">
+    <div className="flex flex-col h-screen ">
       <ChatHeader
         activeChatLoading={activeChatLoading}
         chatUserDetails={activeChatMessages?.other_participant}
