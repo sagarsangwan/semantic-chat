@@ -4,7 +4,6 @@ import React from "react";
 
 function MessageItem({ message }) {
   const { data: session, loading } = useSession();
-  console.log(session);
   const isOwn = message.sender?.id === session?.user?.pk;
   if (loading) {
     return <div>hiiiiiiiiiiiiii</div>;

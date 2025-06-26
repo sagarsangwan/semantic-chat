@@ -20,7 +20,6 @@ function ChatWindow({ activeChat }) {
     };
     fetchChatRoomMessages();
   }, [activeChat]);
-  console.log(activeChatMessages?.messages);
   // if (activeChatLoading) {
   //   return <div>loading</div>;
   // }
