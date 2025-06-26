@@ -7,7 +7,7 @@ function ChatLayout({ chatRooms }) {
   const [activeChat, setActiveChat] = useState(null);
   const isMobile = useIsMobile();
   return (
-    <div className="h-screen w-full flex bg-white">
+    <div className="h-screen w-full  flex  overflow-hidden">
       {/* large Screen */}
       {!isMobile ? (
         <>

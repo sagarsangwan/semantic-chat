@@ -16,11 +16,7 @@ function MessageItem({ message }) {
     >
       <div
         className={`max-w-xs sm:max-w-sm md:max-w-md break-words rounded-lg px-4 py-2 text-sm shadow-md
-      ${
-        isOwn
-          ? "bg-blue-500 text-white"
-          : "bg-gray-200 dark:bg-gray-700 text-black dark:text-white"
-      }`}
+      `}
       >
         {!isOwn && (
           <p className="text-xs font-semibold text-gray-600 dark:text-gray-300 mb-1">
