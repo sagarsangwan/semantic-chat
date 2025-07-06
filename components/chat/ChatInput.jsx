@@ -6,22 +6,24 @@ import { Send } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { sendMessageApi } from "@/lib/api";
 
-function ChatInput({ activeChat }) {
+function ChatInput({ activeChat, socket }) {
   const [currentMessage, setCurentMessage] = useState(null);
   const { data: session, loading } = useSession();
-  console.log(currentMessage);
+
   const sendMessage = async () => {
     const data = {
       sender: session?.user?.pk,
       message: currentMessage,
       room: activeChat,
+      timestamp: new Date().toISOString(),
     };
-    const result = await sendMessageApi(data, activeChat);
-    if (result.status == "ok") {
-      setCurentMessage(null);
-    } else {
-      console.log(result);
-    }
+    socket.emit("chat_message", data);
+    // const result = await sendMessageApi(data, activeChat);
+    // if (result.status == "ok") {
+    //   setCurentMessage(null);
+    // } else {
+    //   console.log(result);
+    // }
   };
   if (loading) {
     return <div>loading</div>;

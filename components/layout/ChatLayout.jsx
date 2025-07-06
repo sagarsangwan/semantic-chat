@@ -3,6 +3,7 @@ import useIsMobile from "@/hooks/useIsMobile";
 import ChatList from "../chat/ChatList";
 import ChatWindow from "../chat/ChatWindow";
 import { ChatSidebar } from "./chat-sidebar";
+import ChatListHeader from "../chat/ChatListHeader";
 function ChatLayout({ chatRooms }) {
   const [activeChat, setActiveChat] = useState(null);
   const isMobile = useIsMobile();
@@ -16,6 +17,7 @@ function ChatLayout({ chatRooms }) {
               <ChatSidebar />
             </div>
             <div className="col-span-4 ">
+              <ChatListHeader />
               <ChatList
                 setActiveChat={setActiveChat}
                 activeChat={activeChat}
